@@ -106,7 +106,7 @@ Hands-on practice quest #00: prerequisites sound-check (15+5)
 ``` 
 
 - [ ] When участники *именуют сценарии*, выполняют команды и анализируют их вывод и поведение
-- Сценарий "Как ...?"
+- Сценарий "Как узнать информацию о системном окружении, df - disk usage, сколько жрем места?"
 ```shell
 docker version # TODO: собственные пометки участников для будущего использования в проектах
 docker system info
@@ -115,32 +115,36 @@ docker system df
 docker events
 ```
 
-- Сценарий "Как ...?"
+- Сценарий "Как залогиниться в репозиторий с образом?"
 (в новом ssh shell, чтобы параллельно видеть вывод `docker events`)
 ```shell
 docker logout
-open https://hub.docker.com/settings/security # to make Access Token
+open in browser https://hub.docker.com/settings/security # to make Access Token
 docker login -u {{ registry-account }} -p {{ access-token }} # login default hub.docker.com registry
 ```
 
-- Сценарий "Как ...?"
+- Сценарий "Как стянуть образ из репозитория? Как из репозитория сделать себе локальное копирование имеджа?" //df покажет новый имедж
 ```shell
 docker image pull alpine
 docker system df
 ````
 
-- Сценарий "Как ...?"
+- Сценарий "Как запустить контейнер?" //ls без all покажет только запущенные контейнеры //name emty - default name CT, e.g. Любопытный_Эйнштейн
 ```shell
-docker container ls [--all]
-docker container run --name demo -it alpine
-/# cat /etc/os-release
-/# exit 
+docker container ls [--all] # docker ps
+docker container run --name demo -it alpine # run = pull Image + crear CT + start CT, 
+                                            # -it - интерактивный режим CT, мой терминал - терминал CT, SystemIn/SystemOut                                                                                                           пробрасываются в мою консоль
+                                              -d - detached, фоновой, независимый режим
+/# cat /etc/os-release # мы в командной оболочке CT (alpine запустила Ash (bsash), ключ -it)
+/# exit # остановка процесса PID=1 останавливает CT (контейнер работает, пока работает процесс), данные хранятся в Container Layer (info o CT + info об изменениях)
+        # exit = остановить - это про процесс, удалить - это про информацию на диске  
+        # docker container start -i [имя CT] = запустить снова
 ```
 
-- Сценарий "Как ...?"
+- Сценарий "Как удалть контейнер?"
 ```shell
 docker container ls [--all]
-docker container rm [--force] demo
+docker container rm [--force] demo # остановить и удалить CT, Container Layer потеряем
 ```
 
 - [ ] Then участники делятся проблемами и отвечают на вопросы
